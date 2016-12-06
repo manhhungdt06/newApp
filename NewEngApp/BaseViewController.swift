@@ -25,43 +25,29 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         print("View Controller is : \(topViewController) \n", terminator: "")
         switch(index){
         case 0:
-            print("Home\n", terminator: "")
-            
             self.openViewControllerBasedOnIdentifier("Home")
-            
             break
         case 1:
-            print("Profile\n", terminator: "")
-            
             self.openViewControllerBasedOnIdentifier("Profile")
-            
             break
         case 2:
-            print("Learn\n", terminator: "")
-            
             self.openViewControllerBasedOnIdentifier("Learn")
             break
         case 3:
-            print("Add\n", terminator: "")
-            
             self.openViewControllerBasedOnIdentifier("Add")
             break
         case 4:
-            print("Test\n", terminator: "")
-            
             self.openViewControllerBasedOnIdentifier("Test")
+            break
         case 5:
-            print("Settings\n", terminator: "")
-            
             self.openViewControllerBasedOnIdentifier("Setting")
+            break
         case 6:
             print("Log out\n", terminator: "")
-            
-            //            self.openViewControllerBasedOnIdentifier("Setting")
-            
             break
         default:
             print("default\n", terminator: "")
+            break
         }
     }
     
@@ -109,13 +95,10 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     }
     
     func onSlideMenuButtonPressed(_ sender : UIButton){
-        if (sender.tag == 10)
-        {
+        if (sender.tag == 10) {
             // To Hide Menu If it already there
-            self.slideMenuItemSelectedAtIndex(-1);
-            
+            self.slideMenuItemSelectedAtIndex(-1);     
             sender.tag = 0;
-            
             let viewMenuBack : UIView = view.subviews.last!
             
             UIView.animate(withDuration: 0.3, animations: { () -> Void in
@@ -140,14 +123,26 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         self.view.addSubview(menuVC.view)
         self.addChildViewController(menuVC)
         menuVC.view.layoutIfNeeded()
-        
-        
         menuVC.view.frame=CGRect(x: 0 - UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
         
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             menuVC.view.frame=CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
             sender.isEnabled = true
         }, completion:nil)
+    }
+    
+    func getPath(_ fileName: String) -> String {
+        let userFileDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let userInfoPath = userFileDir.appending(fileName)
+        print(userInfoPath)
+        return userInfoPath
+    }
+    
+    func alertBox(_ title: String,_ message: String,_ actionTitle: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: actionTitle, style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 

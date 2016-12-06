@@ -14,6 +14,8 @@ protocol SlideMenuDelegate {
 
 class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    var settingParams: SettingParam!
+    
     @IBOutlet var tblMenuOptions : UITableView!
 
     @IBOutlet var btnCloseMenuOverlay : UIButton!
@@ -24,9 +26,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     var delegate : SlideMenuDelegate?
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tblMenuOptions.tableFooterView = UIView()
+        settingParams = SettingParam(level: "Easy", language: "English", time: 86400)
         // Do any additional setup after loading the view.
     }
     
@@ -93,6 +98,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let btn = UIButton(type: UIButtonType.custom)
         btn.tag = indexPath.row
+        
         self.onCloseMenuClick(btn)
     }
     
